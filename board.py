@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # encoding:utf8
 
+from cell import Cell
+
 class Board(object):
     """Board in a Sudoku Game"""
     def __init__(self):
@@ -26,4 +28,17 @@ class Board(object):
             for j in range(m*3, m*3 + 2):
                 square.append(self.cells[(i,j)])
         return square
-                
+
+    def set_value(self, n, m, value):
+        """Set the value of the cell in row n and column m"""
+        self.cells[(n,m)].set_value(value)
+
+    def set_guess(self, n, m, guess):
+        """Set the guess of the cell in row n and column m"""
+        self.cells[(n,m)].set_guess(guess)
+
+    def __getitem__(self, index):
+        """Board expects index to be a iterable of size two"""
+        if len(index) != 2:
+            raise IndexError
+        return self.cells[index]
